@@ -79,6 +79,69 @@ kim-and-bob-in-da-house/
 └── README.md                # 프로젝트 설명 문서
 ```
 
+## 데이터베이스 스키마
+
+이 프로젝트는 Oracle 데이터베이스를 사용하며, 다음과 같은 테이블 구조를 가지고 있습니다:
+
+### 1. gimbap_ingredients (재료 정보)
+| 컬럼명 | 데이터 타입 | 설명 |
+|--------|-------------|------|
+| INGREDIENT_NAME | VARCHAR2(20 BYTE) | 재료 이름 |
+| PRIME_COST | NUMBER | 원가 |
+| VOLUME | NUMBER | 재고량 |
+
+### 2. gimbap_menu (메뉴 정보)
+| 컬럼명 | 데이터 타입 | 설명 |
+|--------|-------------|------|
+| MENU_NAME | VARCHAR2(50 BYTE) | 메뉴 이름 |
+| MENU_COST | NUMBER | 메뉴 가격 |
+| MENU_DESCRIPTION | VARCHAR2(200 BYTE) | 메뉴 설명 |
+
+### 3. gimbap_order (주문 정보)
+| 컬럼명 | 데이터 타입 | 설명 |
+|--------|-------------|------|
+| ORDER_NUM | NUMBER | 주문 번호 |
+| ORDER_DATE | DATE | 주문 날짜 |
+| ORDER_DETAILS | VARCHAR2(100 BYTE) | 주문 상세 내역 |
+| ORDER_AMOUNT | NUMBER | 주문 총액 |
+| ORDER_STATUS | VARCHAR2(20 BYTE) | 주문 상태 |
+
+### 4. gimbap_order_details (주문 상세 정보)
+| 컬럼명 | 데이터 타입 | 설명 |
+|--------|-------------|------|
+| ORDER_NUM | NUMBER | 주문 번호 |
+| ITEM_NAME | VARCHAR2(50 BYTE) | 주문 항목 이름 |
+| QUANTITY | NUMBER | 주문 수량 |
+
+### 5. gimbap_sales (매출 정보)
+| 컬럼명 | 데이터 타입 | 설명 |
+|--------|-------------|------|
+| SALES_DATE | DATE | 판매 날짜 |
+| SALES_VOLUME | NUMBER | 판매 수량 |
+| SALES_SUM | NUMBER | 총 매출액 |
+
+## 데이터베이스 관계
+
+- `gimbap_order`와 `gimbap_order_details`는 `ORDER_NUM`을 통해 1:N 관계를 가집니다.
+- `gimbap_menu`의 메뉴 정보는 `gimbap_order_details`의 `ITEM_NAME`과 연관됩니다.
+- `gimbap_ingredients`는 메뉴 제작에 사용되는 재료 정보를 관리합니다.
+- `gimbap_sales`는 일일 매출 집계 정보를 저장합니다.
+
+## 데이터베이스 사용 예시
+
+1. 주문 처리:
+   - 새 주문이 들어오면 `gimbap_order`에 주문 정보를 입력하고, `gimbap_order_details`에 상세 주문 항목을 기록합니다.
+   - 주문 처리 시 `gimbap_ingredients`의 재고량(VOLUME)을 감소시킵니다.
+
+2. 매출 관리:
+   - 일일 판매 종료 후 `gimbap_sales`에 해당 일자의 총 판매량과 매출액을 기록합니다.
+
+3. 재고 관리:
+   - `gimbap_ingredients`의 VOLUME을 주기적으로 체크하여 재고 부족 여부를 확인합니다.
+
+4. 메뉴 관리:
+   - `gimbap_menu`를 통해 현재 판매 중인 메뉴 정보를 관리합니다.
+
 ## 개발 로그
 
 ### 1일차 (금요일)
