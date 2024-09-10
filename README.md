@@ -234,6 +234,66 @@ classDiagram
 
 이 UML 클래스 다이어그램은 시스템의 주요 클래스들과 그들 사이의 관계를 보여줍니다. 각 클래스는 주요 속성과 메서드를 포함하고 있으며, 클래스 간의 관계를 선으로 표시하고 있습니다.
 
+시스템 유스케이스 다이어그램
+다음은 Kim & Bob in da House 시스템의 주요 기능과 사용자 상호작용을 보여주는 유스케이스 다이어그램입니다:
+mermaidCopygraph TD
+    Customer((Customer))
+    KitchenStaff((Kitchen Staff))
+    Owner((Owner))
+
+    Customer --> |Browse Menu| ViewMenu[View Menu]
+    Customer --> |Place Order| PlaceOrder[Place Order]
+    Customer --> |View Order Status| CheckOrderStatus[Check Order Status]
+
+    KitchenStaff --> |View Orders| ViewOrders[View Orders]
+    KitchenStaff --> |Update Order Status| UpdateOrderStatus[Update Order Status]
+    KitchenStaff --> |Mark Order as Complete| CompleteOrder[Complete Order]
+
+    Owner --> |View Daily Sales| ViewDailySales[View Daily Sales]
+    Owner --> |Analyze Sales Trends| AnalyzeSalesTrends[Analyze Sales Trends]
+    Owner --> |Manage Inventory| ManageInventory[Manage Inventory]
+    Owner --> |View Reports| ViewReports[View Reports]
+
+    subgraph Kim & Bob in da House System
+        ViewMenu
+        PlaceOrder
+        CheckOrderStatus
+        ViewOrders
+        UpdateOrderStatus
+        CompleteOrder
+        ViewDailySales
+        AnalyzeSalesTrends
+        ManageInventory
+        ViewReports
+    end
+이 유스케이스 다이어그램은 세 가지 주요 액터(고객, 주방 직원, 사장)와 그들이 시스템과 상호작용하는 방식을 보여줍니다. 각 액터는 시스템 내에서 수행할 수 있는 특정 작업(유스케이스)과 연결되어 있습니다.
+주요 유스케이스 설명:
+
+고객 (Customer):
+
+메뉴 보기: 고객이 제공되는 메뉴를 탐색할 수 있습니다.
+주문하기: 고객이 원하는 항목을 선택하고 주문을 할 수 있습니다.
+주문 상태 확인: 고객이 자신의 주문 상태를 확인할 수 있습니다.
+
+
+주방 직원 (Kitchen Staff):
+
+주문 보기: 들어온 주문을 확인할 수 있습니다.
+주문 상태 업데이트: 주문의 진행 상태를 업데이트할 수 있습니다.
+주문 완료 처리: 주문이 완성되면 완료 상태로 표시할 수 있습니다.
+
+
+사장 (Owner):
+
+일일 매출 보기: 해당 일의 총 매출을 확인할 수 있습니다.
+판매 추이 분석: 기간별 판매 추이를 분석할 수 있습니다.
+재고 관리: 현재 재고 상태를 확인하고 관리할 수 있습니다.
+보고서 보기: 다양한 운영 관련 보고서를 볼 수 있습니다.
+
+
+
+이 유스케이스 다이어그램은 Kim & Bob in da House 시스템의 주요 기능과 사용자 역할을 명확히 보여줍니다. 이를 통해 시스템의 전반적인 기능과 각 사용자 그룹의 주요 작업을 쉽게 이해할 수 있습니다.
+
 ## 개발 로그
 
 ### 1일차 (금요일)
