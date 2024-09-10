@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boss Dashboard</title>
+    <link rel="stylesheet" href="boss_styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="spotify-theme">
+    <header class="header">
+        <h1>일자별 정산</h1>
+    </header>
+
+    <main class="main-content">
+        <section class="date-list">
+            <h2>날짜</h2>
+            <ul id="dateList"></ul>
+        </section>
+
+        <section class="sales-info">
+            <h2>매출 정보</h2>
+            <div id="salesInfo"></div>
+            <div class="chart-container">
+                <canvas id="menuChart"></canvas>
+            </div>
+        </section>
+
+        <section class="sales-trend">
+            <h2>기간 별 판매 추이</h2>
+            <div class="period-settings">
+                <label><input type="radio" name="period" value="week" checked> 주</label>
+                <label><input type="radio" name="period" value="month"> 월</label>
+                <label><input type="radio" name="period" value="year"> 년</label>
+            </div>
+            <div class="chart-container">
+                <canvas id="trendChart"></canvas>
+            </div>
+        </section>
+
+        <section class="inventory">
+            <h2>재료 재고량</h2>
+            <div id="inventoryInfo"></div>
+            <div class="chart-container">
+                <canvas id="inventoryChart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <script src="boss_script.js"></script>
+</body>
+</html>

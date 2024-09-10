@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "240906_groupwere_project": "file:",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mysql2": "^3.11.0",
+    "oracledb": "^6.6.0"
+  },
+  "name": "240906_groupwere_project",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
