@@ -236,6 +236,7 @@ classDiagram
 
 시스템 유스케이스 다이어그램
 다음은 Kim & Bob in da House 시스템의 주요 기능과 사용자 상호작용을 보여주는 유스케이스 다이어그램입니다:
+
 ```mermaid
 Copygraph TD
     Customer((Customer))
@@ -267,6 +268,8 @@ Copygraph TD
         ManageInventory
         ViewReports
     end
+```
+
 이 유스케이스 다이어그램은 세 가지 주요 액터(고객, 주방 직원, 사장)와 그들이 시스템과 상호작용하는 방식을 보여줍니다. 각 액터는 시스템 내에서 수행할 수 있는 특정 작업(유스케이스)과 연결되어 있습니다.
 주요 유스케이스 설명:
 
