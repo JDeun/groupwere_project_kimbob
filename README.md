@@ -1,5 +1,19 @@
 # Kim & Bob in da House (그룹웨어 프로젝트)
 
+## 목차
+1. [프로젝트 개요](#프로젝트-개요)
+2. [주요 기능](#주요-기능)
+3. [기술 스택](#기술-스택)
+4. [설치 및 실행 방법](#설치-및-실행-방법)
+5. [프로젝트 구조](#프로젝트-구조)
+6. [데이터베이스 스키마](#데이터베이스-스키마)
+7. [데이터베이스 ERD](#데이터베이스-erd)
+8. [시스템 UML 클래스 다이어그램](#시스템-uml-클래스-다이어그램)
+9. [개발 로그](#개발-로그)
+10. [향후 계획](#향후-계획)
+11. [문의 및 기여](#문의-및-기여)
+12. [라이선스](#라이선스)
+
 ## 프로젝트 개요
 
 Kim & Bob in da House는 김밥 전문점을 위한 종합 관리 시스템입니다. 이 프로젝트는 고객 주문, 주방 관리, 그리고 사장님 대시보드 기능을 제공하여 효율적인 매장 운영을 지원합니다.
@@ -120,27 +134,105 @@ kim-and-bob-in-da-house/
 | SALES_VOLUME | NUMBER | 판매 수량 |
 | SALES_SUM | NUMBER | 총 매출액 |
 
-## 데이터베이스 관계
+## 데이터베이스 ERD
 
-- `gimbap_order`와 `gimbap_order_details`는 `ORDER_NUM`을 통해 1:N 관계를 가집니다.
-- `gimbap_menu`의 메뉴 정보는 `gimbap_order_details`의 `ITEM_NAME`과 연관됩니다.
-- `gimbap_ingredients`는 메뉴 제작에 사용되는 재료 정보를 관리합니다.
-- `gimbap_sales`는 일일 매출 집계 정보를 저장합니다.
+다음은 데이터베이스의 Entity-Relationship Diagram (ERD)입니다:
 
-## 데이터베이스 사용 예시
+```mermaid
+erDiagram
+    GIMBAP_INGREDIENTS ||--o{ GIMBAP_MENU : "used in"
+    GIMBAP_MENU ||--o{ GIMBAP_ORDER_DETAILS : "contains"
+    GIMBAP_ORDER ||--|{ GIMBAP_ORDER_DETAILS : "has"
+    GIMBAP_ORDER }|--|| GIMBAP_SALES : "contributes to"
 
-1. 주문 처리:
-   - 새 주문이 들어오면 `gimbap_order`에 주문 정보를 입력하고, `gimbap_order_details`에 상세 주문 항목을 기록합니다.
-   - 주문 처리 시 `gimbap_ingredients`의 재고량(VOLUME)을 감소시킵니다.
+    GIMBAP_INGREDIENTS {
+        VARCHAR2 INGREDIENT_NAME
+        NUMBER PRIME_COST
+        NUMBER VOLUME
+    }
 
-2. 매출 관리:
-   - 일일 판매 종료 후 `gimbap_sales`에 해당 일자의 총 판매량과 매출액을 기록합니다.
+    GIMBAP_MENU {
+        VARCHAR2 MENU_NAME
+        NUMBER MENU_COST
+        VARCHAR2 MENU_DESCRIPTION
+    }
 
-3. 재고 관리:
-   - `gimbap_ingredients`의 VOLUME을 주기적으로 체크하여 재고 부족 여부를 확인합니다.
+    GIMBAP_ORDER {
+        NUMBER ORDER_NUM
+        DATE ORDER_DATE
+        VARCHAR2 ORDER_DETAILS
+        NUMBER ORDER_AMOUNT
+        VARCHAR2 ORDER_STATUS
+    }
 
-4. 메뉴 관리:
-   - `gimbap_menu`를 통해 현재 판매 중인 메뉴 정보를 관리합니다.
+    GIMBAP_ORDER_DETAILS {
+        NUMBER ORDER_NUM
+        VARCHAR2 ITEM_NAME
+        NUMBER QUANTITY
+    }
+
+    GIMBAP_SALES {
+        DATE SALES_DATE
+        NUMBER SALES_VOLUME
+        NUMBER SALES_SUM
+    }
+```
+
+이 ERD는 테이블 간의 관계를 시각적으로 표현합니다. 각 엔티티(테이블)는 속성(컬럼)을 포함하고 있으며, 엔티티 간의 관계를 선으로 표시하고 있습니다.
+
+## 시스템 UML 클래스 다이어그램
+
+다음은 시스템의 주요 클래스와 그들 사이의 관계를 보여주는 UML 클래스 다이어그램입니다:
+
+```mermaid
+classDiagram
+    class Order {
+        +int orderNum
+        +Date orderDate
+        +String orderDetails
+        +double orderAmount
+        +String orderStatus
+        +placeOrder()
+        +updateStatus()
+    }
+
+    class OrderDetail {
+        +int orderNum
+        +String itemName
+        +int quantity
+    }
+
+    class Menu {
+        +String menuName
+        +double menuCost
+        +String menuDescription
+        +displayMenu()
+        +updateMenu()
+    }
+
+    class Ingredient {
+        +String ingredientName
+        +double primeCost
+        +int volume
+        +updateStock()
+        +checkLowStock()
+    }
+
+    class Sales {
+        +Date salesDate
+        +int salesVolume
+        +double salesSum
+        +recordSales()
+        +generateReport()
+    }
+
+    Order "1" *-- "many" OrderDetail
+    Menu "1" *-- "many" OrderDetail
+    Menu "1" *-- "many" Ingredient
+    Order "many" -- "1" Sales : contributes to
+```
+
+이 UML 클래스 다이어그램은 시스템의 주요 클래스들과 그들 사이의 관계를 보여줍니다. 각 클래스는 주요 속성과 메서드를 포함하고 있으며, 클래스 간의 관계를 선으로 표시하고 있습니다.
 
 ## 개발 로그
 
