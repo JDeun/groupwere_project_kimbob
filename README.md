@@ -236,7 +236,8 @@ classDiagram
 
 시스템 유스케이스 다이어그램
 다음은 Kim & Bob in da House 시스템의 주요 기능과 사용자 상호작용을 보여주는 유스케이스 다이어그램입니다:
-mermaidCopygraph TD
+```mermaid
+Copygraph TD
     Customer((Customer))
     KitchenStaff((Kitchen Staff))
     Owner((Owner))
